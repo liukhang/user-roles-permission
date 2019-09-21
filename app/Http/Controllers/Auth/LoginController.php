@@ -39,16 +39,16 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-
-    public function getLogin(){
-        return view('auth.login');
-    }
-
     public function postLogin(Request $request) {
-
-    	if( Auth::attempt(['email' => $request->input('email'),'password' => $request->input('password')])) {
-            
-            return redirect()->intended('/');
+    	if( Auth::attempt(['name' => $request->input('name'),'password' => $request->input('password')])) {
+            if (Auth::user()->hasPermissionTo('admin')) {
+                return redirect()->intended('/home');
+            } else {
+                Auth::logout();
+                return redirect()->back()->withErrors(['name' => 'Bạn không đủ quyền truy cập.']);
+            }
+        } else {
+            return redirect()->back()->withErrors(['name' => 'Tên người dùng hoặc password không đúng.']);
         }
     }
 }

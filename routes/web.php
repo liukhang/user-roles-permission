@@ -29,4 +29,4 @@ Route::group(['middleware' => 'auth', 'middleware' => 'role:super-admin'], funct
 /**
  * Login Route(s)
  */
-Route::post('login', 'Auth\LoginController@login');
+Route::post('login', 'Auth\LoginController@postLogin');
