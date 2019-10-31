@@ -27,7 +27,7 @@ class SetupDevelopment extends Command
      */
     public function handle()
     {
-        if (!config('app.key') && file_exists(base_path('.env'))) {
+        if (!config('app.key') && file_exists(base_path('.env1'))) {
             $this->call('key:generate');
         }
 

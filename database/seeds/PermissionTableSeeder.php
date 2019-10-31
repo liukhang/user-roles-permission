@@ -13,13 +13,12 @@ class PermissionTableSeeder extends Seeder
     public function run()
     {
         $permissions = [
-           'super-admin',
-           'admin',
-           'collaborators',
-           'customer',
+            'login-admin',
+            'super-admin',
+            'admin',
+            'collaborators',
+            'customer',
         ];
-
-
         foreach ($permissions as $permission) {
              Permission::create(['name' => $permission]);
         }

@@ -17,16 +17,21 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::group(['middleware' => 'auth', 'middleware' => 'role:super-admin'], function() {
-    Route::resource('roles','RoleController');
-    Route::resource('users','UserController');
-    Route::resource('products','ProductController');
-});
-
+Route::get('/admin', 'Backend\AdminController@index')->name('admin');
 
 /**
  * Login Route(s)
  */
 Route::post('login', 'Auth\LoginController@postLogin');
+
+
+
+Route::group(['middleware' => 'auth', 'middleware' => 'role:super-admin|admin', 'prefix' =>'admin'], function() {
+    /**
+     * Admin Route(s)
+     */
+    Route::resource('roles', 'Backend\RoleController');
+    Route::resource('users', 'Backend\UserController');
+});
+
+Route::get('/', 'Frontend\IndexController@index')->name('home');

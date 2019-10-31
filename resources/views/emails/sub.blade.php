@@ -1,0 +1,1 @@
+Thank you for following us from email {!! $email !!}
