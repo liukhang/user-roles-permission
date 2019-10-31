@@ -39,6 +39,7 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    
     public function postLogin(Request $request) {
     	if( Auth::attempt(['name' => $request->input('name'),'password' => $request->input('password')])) {
             if (Auth::user()->hasPermissionTo('admin')) {
@@ -48,7 +49,7 @@ class LoginController extends Controller
                 return redirect()->back()->withErrors(['name' => 'Bạn không đủ quyền truy cập.']);
             }
         } else {
-            return redirect()->back()->withErrors(['name' => 'Tên người dùng hoặc password không đúng.']);
+            return redirect()->back()->withInput()->withErrors(['name' => 'Tên người dùng hoặc password không đúng.']);
         }
     }
 }
